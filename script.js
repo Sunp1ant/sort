@@ -3,8 +3,8 @@ var ctx = canvas.getContext("2d");
 var cw = canvas.width;
 var ch = canvas.height;
 
-var rows = 20;
-var cols = 20;
+var rows = 10;
+var cols = 10;
 var delay = 0;
 
 var img = new Image();
