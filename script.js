@@ -31,7 +31,8 @@ function start() {
   drawPicture(pieces);
   //printSequence(pieces);
   
-  bubbleSort(pieces);
+  //bubbleSort(pieces);
+  selectionSort(pieces);
 
 }
 
@@ -74,6 +75,54 @@ function bubbleSort(pieces){
 		}(i, j));
 	  }
 	}
+}
+
+
+function selectionSort(pieces) {
+	// helper function
+	var delayed = (function () {
+		var queue = [];
+
+		function processQueue() {
+			if (queue.length > 0) {
+				setTimeout(function () {
+					queue.shift().cb();
+					processQueue();
+				}, queue[0].delay);
+			}
+		}
+
+		return function delayed(delay, cb) {
+			queue.push({ delay: delay, cb: cb });
+
+			if (queue.length === 1) {
+				processQueue();
+			}
+		};
+	}());
+
+	// algo start
+	for (let j = 0; j < pieces.length - 1; j++) {
+		var smallest = pieces[j].index;
+		var position = j;
+		var i = j + 1;
+		//for (let i = j + 1; i < pieces.length; i++) {
+		while (i < pieces.length) {
+			if (smallest > pieces[i].index) {
+				smallest = pieces[i].index;
+				position = i;
+			}
+			i++;
+		}
+
+		delayed(delay, function (i ,j) {
+				return function () {
+					swapPiece(pieces, j, position);
+				};
+			}(i, j));
+		
+	}
+	// algo end
 }
 
 
